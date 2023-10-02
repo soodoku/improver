@@ -1,6 +1,5 @@
 import streamlit as st
 import openai
-from streamlit.server.server import Server
 
 default_prompt = "Highlight any errors in the code and provide suggestions for improving the code. \
                   Also implement those suggestions and provide revised code."
