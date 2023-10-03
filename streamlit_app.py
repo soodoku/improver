@@ -16,24 +16,15 @@ def generate_text(prompt, api_key):
     )
     return response.choices[0].text.strip()
 
-@st.cache_data
-def get_set_api_key(api_key=None):
-    session_state = Server.get_current()._session_state
-    if api_key:
-        session_state.api_key = api_key
-    return session_state.api_key
-
 st.title("Suggestions for Improving Your Code")
 
 user_input = st.text_area("Enter your code:", height=200)
 
-api_key = st.text_input("Enter your OpenAI API key", type="password")
+api_key = st.session_state.get("api_key", "")
 
-if api_key:
-    st.session_state.api_key = api_key
-
-# Retrieve the API key from the session
-api_key = st.session_state.api_key
+if not api_key:
+    api_key = st.text_input("Enter your OpenAI API key", type="password")
+    st.session_state.api_key = api_key  # Cache the API key
 
 if st.button("Generate Suggestions for Improvement") and api_key:
     with st.spinner("Generating..."):
