@@ -1,6 +1,5 @@
 import streamlit as st
 import openai 
-import secrets
 
 
 default_prompt = "Highlight any errors in the code and provide suggestions for improving the code. \
@@ -9,12 +8,17 @@ default_prompt = "Highlight any errors in the code and provide suggestions for i
 def generate_text(prompt, api_key):
     openai.api_key = api_key
     full_prompt = default_prompt + user_input
-    response = openai.Completion.create(
-        engine = "davinci-codex",
-        prompt = full_prompt,
-        max_tokens = 4096
-    )
-    return response.choices[0].text.strip()
+    try: 
+        response = openai.Completion.create(
+            engine = "davinci-codex",
+            prompt = full_prompt,
+            max_tokens = 1500
+        )
+        return response.choices[0].text.strip()
+        
+    except openai.error.OpenAIError as e:
+        st.error(f"OpenAI API Error: {str(e)}")
+        return None
 
 st.title("Suggestions for Improving Your Code")
 
