@@ -26,13 +26,11 @@ def get_set_api_key(api_key=None):
 st.title("Suggestions for Improving Your Code")
 
 user_input = st.text_area("Enter your code:", height=200)
-st.write("You entered:", user_input)
 
 api_key = st.text_input("Enter your OpenAI API key", type="password")
 
 if api_key:
     st.session_state.api_key = api_key
-st.write("API Key entered:", api_key)
 
 # Retrieve the API key from the session
 api_key = st.session_state.api_key
