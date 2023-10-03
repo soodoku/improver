@@ -6,7 +6,7 @@ default_prompt = "Highlight any errors in the code and provide suggestions for i
                   Also implement those suggestions and provide revised code."
 
 
-def generate_text(prompt, api_key):
+def generate_text(prompt, api_key, temperature = 0.4):
     openai.api_key = api_key
 
     full_prompt = default_prompt + "\n" + prompt
@@ -15,7 +15,8 @@ def generate_text(prompt, api_key):
         response = openai.Completion.create(
             engine = "gpt-3.5-turbo-instruct",
             prompt = full_prompt,
-            max_tokens = 3700
+            max_tokens = 3700,
+            temperature = temperature
         )
         return response.choices[0].text.strip()
 
