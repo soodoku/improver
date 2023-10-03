@@ -10,7 +10,7 @@ def generate_text(prompt, api_key):
     full_prompt = default_prompt + "\n" + user_input
     try: 
         response = openai.Completion.create(
-            engine = "gpt-3.5-turbo-0613",
+            engine = "gpt-3.5-turbo-instruct",
             prompt = full_prompt,
             max_tokens = 1500
         )
