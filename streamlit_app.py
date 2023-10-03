@@ -7,15 +7,15 @@ default_prompt = "Highlight any errors in the code and provide suggestions for i
 
 def generate_text(prompt, api_key):
     openai.api_key = api_key
-    full_prompt = default_prompt + user_input
+    full_prompt = default_prompt + "\n" + user_input
     try: 
         response = openai.Completion.create(
-            engine = "davinci-codex",
+            engine = "Code-davinci-002",
             prompt = full_prompt,
             max_tokens = 1500
         )
         return response.choices[0].text.strip()
-        
+
     except openai.error.OpenAIError as e:
         st.error(f"OpenAI API Error: {str(e)}")
         return None
@@ -33,6 +33,6 @@ if not api_key:
 if st.button("Generate Suggestions for Improvement") and api_key:
     with st.spinner("Generating..."):
         generated_text = generate_text(user_input, api_key)
-    st.success("Text Generated!")
-    st.write("Generated Text:")
+    st.success("Suggested Improvements Have Been Generated!")
+    st.write("Suggested Improvements:")
     st.write(generated_text)
