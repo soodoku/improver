@@ -10,20 +10,20 @@ def generate_text(prompt, api_key):
     openai.api_key = api_key
     full_prompt = default_prompt + user_input
     response = openai.Completion.create(
-        engine="davinci",
-        prompt=full_prompt,
-        max_tokens=150
+        engine = "davinci-codex",
+        prompt = full_prompt,
+        max_tokens = 4096
     )
     return response.choices[0].text.strip()
 
 st.title("Suggestions for Improving Your Code")
 
-user_input = st.text_area("Enter your code:", height=200)
+user_input = st.text_area("Enter your code:", height = 200)
 
 api_key = st.session_state.get("api_key", "")
 
 if not api_key:
-    api_key = st.text_input("Enter your OpenAI API key", type="password")
+    api_key = st.text_input("Enter your OpenAI API key", type = "password")
     st.session_state.api_key = api_key  # Cache the API key
 
 if st.button("Generate Suggestions for Improvement") and api_key:
