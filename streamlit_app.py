@@ -5,27 +5,11 @@ import openai
 default_prompt = "Highlight any errors in the code and provide suggestions for improving the code. \
                   Also implement those suggestions and provide revised code."
 
-default_prompt = '''
-{
-    "code": "<<YOUR CODE HERE>>",
-    "critical_errors": [
-        {
-            "error_id": 1,
-            "explanation": "Explanation for critical error 1"
-        },
-        {
-            "error_id": 2,
-            "explanation": "Explanation for critical error 2"
-        }
-    ]
-}
-'''
 
 def generate_text(prompt, api_key):
     openai.api_key = api_key
 
-    #full_prompt = default_prompt + "\n" + prompt
-    full_prompt = default_prompt.replace("<<YOUR CODE HERE>>", prompt)
+    full_prompt = default_prompt + "\n" + prompt
 
     try: 
         response = openai.Completion.create(
