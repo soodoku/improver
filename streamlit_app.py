@@ -12,7 +12,7 @@ def generate_text(prompt, api_key):
         response = openai.Completion.create(
             engine = "gpt-3.5-turbo-instruct",
             prompt = full_prompt,
-            max_tokens = 1500
+            max_tokens = 4097
         )
         return response.choices[0].text.strip()
 
